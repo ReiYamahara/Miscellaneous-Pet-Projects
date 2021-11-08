@@ -1,2 +1,2 @@
-# 2d_3d_graphing
+# Graphing
 Mandelbrot set, Julia set, etc.
