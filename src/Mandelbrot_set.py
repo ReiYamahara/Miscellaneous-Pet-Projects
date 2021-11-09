@@ -1,13 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-y_Pixels = 2000
-x_Pixels = round((2/3)*y_Pixels)
-array=np.zeros((x_Pixels,y_Pixels))
-x=np.linspace(-2,2,y_Pixels)
-y=np.linspace(-2,2,x_Pixels)
-
+y_pixels = 20
+x_pixels = round((2/3) * y_pixels)
+array=np.zeros((x_Pixels, y_pixels))
+x=np.linspace(-2, 1, y_pixels)
+y=np.linspace(-1.2, 1.2, x_pixels)
 
 def mandelbrot_set(Re,Im, max_iter):
     c=complex(Re,Im)
@@ -18,11 +16,11 @@ def mandelbrot_set(Re,Im, max_iter):
            return i
     return max_iter
 
-
 for b in y:
    for a in x:
         array[np.where(y==b),np.where(x==a)]=mandelbrot_set(a,b,50)
-
+        
+     
 fig=plt.figure(dpi=1000)
 plt.imshow(array,cmap='Reds',extent=[-2,2,-2,2],interpolation='None')
 plt.axis("off")
