@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-x_pixels = 1000
+x_pixels = 10000
 y_pixels = round((2/3) * x_pixels)
 x=np.linspace(-2.1, 1.2, x_pixels) # get 3:2 ratio because it looks good 
 y=np.linspace(-1.2, 1.2, y_pixels) * 1j
@@ -18,7 +18,7 @@ else:
     array[array == 0] = iteration
 array = array - 1
 
-fig = plt.figure(dpi = 100)
-plt.imshow(array, cmap = 'Reds', interpolation = 'None')
+fig = plt.figure(dpi = 1000)
+plt.imshow(array, cmap = 'RdBu', interpolation = 'None')
 plt.axis("off")
 plt.show();
