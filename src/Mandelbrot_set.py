@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-y_pixels = 20
+y_pixels = 1000
 x_pixels = round((2/3) * y_pixels)
-array=np.zeros((x_Pixels, y_pixels))
+array=np.zeros((x_pixels, y_pixels))
 x=np.linspace(-2, 1, y_pixels)
 y=np.linspace(-1.2, 1.2, x_pixels)
 
@@ -18,10 +18,10 @@ def mandelbrot_set(Re,Im, max_iter):
 
 for b in y:
    for a in x:
-        array[np.where(y==b),np.where(x==a)]=mandelbrot_set(a,b,50)
+        array[np.where(y==b),np.where(x==a)]=mandelbrot_set(a,b,30)
         
      
-fig=plt.figure(dpi=1000)
+fig=plt.figure(dpi=200)
 plt.imshow(array,cmap='Reds',extent=[-2,2,-2,2],interpolation='None')
 plt.axis("off")
 plt.show();
