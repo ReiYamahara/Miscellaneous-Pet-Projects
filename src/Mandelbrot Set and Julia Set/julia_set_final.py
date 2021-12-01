@@ -10,7 +10,7 @@ y=np.linspace(y_lower_bound, y_lower_bound*(-1), y_pixels) * 1j
 complex_num = x + y.reshape(y_pixels, 1)
 array=np.zeros((y_pixels, x_pixels))
 
-iteration = 30
+iteration = 50
 z = complex_num
 c = 0.28 + 0.008j
 '''
@@ -29,5 +29,4 @@ else:
 plt.figure(dpi = 100)
 plt.imshow(array, cmap = 'Blues', interpolation = 'None')
 plt.axis("off")
-plt.show()
-print(array);
+plt.show();

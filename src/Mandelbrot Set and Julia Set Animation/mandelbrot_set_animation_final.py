@@ -23,7 +23,6 @@ for i in range(1, iteration + 1): # from 1 to iteration + 1 because array is a z
     plt.imshow(array, cmap = 'RdBu', interpolation = 'None')
     plt.axis("off")
     plt.pause(0.1) # How long to pause   
-print('done')
 plt.show(); 
 
 

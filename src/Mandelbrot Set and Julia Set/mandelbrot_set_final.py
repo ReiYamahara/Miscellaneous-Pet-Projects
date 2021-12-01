@@ -11,7 +11,6 @@ array=np.zeros((y_pixels, x_pixels))
 iteration = 30
 z = 0
 
-
 for i in range(0, iteration + 1): # from 1 to iteration + 1 because array is a zero array
     z = z ** 2 + complex_num
 
@@ -24,7 +23,7 @@ plt.figure(dpi = 100)
 plt.imshow(array, cmap = 'RdBu', interpolation = 'None')
 plt.axis("off")
 plt.show()
-print(array);
+;
 
 # possible improvements:
 # - what to do if z becomes very large
