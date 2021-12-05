@@ -1,15 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-x_pixels = 1000
+x_pixels = 3000
 y_pixels = round((2/3) * x_pixels)
 x=np.linspace(-2.1, 1.2, x_pixels) # get 3:2 ratio because it looks good 
 y=np.linspace(-1.2, 1.2, y_pixels) * 1j
 complex_num = x + y.reshape(y_pixels, 1)
 array=np.zeros((y_pixels, x_pixels))
 
-iteration = 10
-z = 0.5 + 0.2j
+iteration = 30
+z = 0
 
 for i in range(1, iteration + 1): # from 1 to iteration + 1 because array is a zero array    
     plt.clf() # clears the figure

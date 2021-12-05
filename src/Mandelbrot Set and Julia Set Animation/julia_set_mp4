@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from celluloid import Camera # celluloid package for making videos out of matplotlib animations...
 
 x_pixels = 2000
 y_pixels = round((2/3) * x_pixels)
@@ -10,7 +11,7 @@ y=np.linspace(y_lower_bound, y_lower_bound*(-1), y_pixels) * 1j
 complex_num = x + y.reshape(y_pixels, 1)
 array=np.zeros((y_pixels, x_pixels))
 
-iteration = 100
+iteration = 50
 z = complex_num
 c = 0.28 + 0.008j
 '''
@@ -20,6 +21,7 @@ c = -1.476
 c = -0.4 + 0.6j, 0.285 + 0.01j, -0.8 + 0.156j, -0.70176 - 0.3842j
 '''
 fig = plt.figure( dpi = 100) # only on unique figure 1 - we don't create numerous figures
+camera = Camera(fig)
 
 for i in range(1, iteration + 1): # from 1 to iteration + 1 because array is a zero array    
     plt.clf() # clears the figure
@@ -31,5 +33,9 @@ for i in range(1, iteration + 1): # from 1 to iteration + 1 because array is a z
     plt.imshow(array, cmap = 'Blues', interpolation = 'None')
     plt.axis("off")
     plt.pause(0.01) # How long to pause  
-plt.show()
+    camera.snap()
+ 
+animation = camera.animate()
+animation.save('julia_set.gif')
+
 # next step: save as gif
