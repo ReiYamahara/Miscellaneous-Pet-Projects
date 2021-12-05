@@ -1,0 +1,9 @@
+import pandas as pd
+df = pd.DataFrame({'Radius':[-1], 'Centre':[[0, 0]], 
+                'radius_1':[0], 'centre_1':[0], 
+                'radius_2':[0], 'centre_2':[0],
+                'radius_3':[0], 'centre_3':[0]})
+df.loc[len(df)] = [1/2, [-1/2, 0], 0, 0, 0, 0, 0, 0]
+df.loc[len(df)] = [1/2, [1/2, 0], 0, 0, 0, 0, 0, 0]
+print(df.iloc[0, 1])
+
