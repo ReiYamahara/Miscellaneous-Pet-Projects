@@ -72,4 +72,4 @@ def mandelbrot_set_save(iteration_array, interval = 20, dpi = 100, cmap = 'RdBu'
     anim.save(f'mandelbrot_set_{cmap.lower()}_{len(iteration_array)}.gif', writer = 'pillow')
 
 iteration_array = mandelbrot_set(x_pixels = 2000, iterations = 100)
-mandelbrot_set_save(iteration_array, interval = 50, dpi = 300, cmap = 'RdBu')
+mandelbrot_set_save(iteration_array, interval = 50, dpi = 500, cmap = 'RdBu')
