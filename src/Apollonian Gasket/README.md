@@ -15,3 +15,8 @@ Parameters:
 Initial conditions:
 - the outer circle has radius -1.
 - the apollonian gasket requires three predetermined circles.
+
+Potential methods:
+- We could try and use vectors and matrices to solve it...
+- Guess work? integers that fit the equation...?
+- using trees

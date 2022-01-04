@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-x_pixels = 2000
+x_pixels = 1000
 y_pixels = round((2/3) * x_pixels)
 x_lower_bound = -2
 y_lower_bound = 2/3 * x_lower_bound

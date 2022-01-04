@@ -2,9 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from cmath import *
+import math
 
 fig, ax = plt.subplots(dpi = 100)
 plt.axis('equal')
+plt.axis('off')
+
 
 # parameter: angle and radius
 theta = np.linspace(0, 2*np.pi, 100)
@@ -37,10 +40,8 @@ x_3 = r_3 * np.cos(theta) + 0.5
 y_3 = r_3 * np.sin(theta)
 ax.plot(x_3, y_3)
 
-# maybe make a pandas dataframe for each circle: for each new circle, there'll be the radius and the centre of the three other circles
+# make a pandas dataframe for each circle: for each new circle, there'll be the radius and the centre of the three other circles
 # a tree is more optimal but this will have to do - we will put another parameter - the size of the radius.
-
-# Each circle will have a centre, a radius and a curvature and a 
 
 def radius_and_centre(r_1, centre_1, r_2, centre_2, r_3, centre_3): # it should take in the dataframe... and also a limit parameter (curvature value)
     '''
@@ -57,9 +58,12 @@ def radius_and_centre(r_1, centre_1, r_2, centre_2, r_3, centre_3): # it should 
     curve_3 = 1/r_3
 
     # radius of the 4th circle # we could get two different radii
-    curve_4 = curve_1 + curve_2 + curve_3 + 2*sqrt(curve_1*curve_2 + curve_2*curve_3 + curve_3*curve_1)
-    r_4 = (1/curve_4).real # converting from complex to real
+    curve_4 = curve_1 + curve_2 + curve_3 + 2*math.sqrt(curve_1*curve_2 + curve_2*curve_3 + curve_3*curve_1)
+    r_4 = (1/curve_4)
+    
 
+
+ 
     # complex number form of the three circles
     complex_1 = centre_1[0] + centre_1[1]* 1j
     complex_2 = centre_2[0] + centre_2[1]* 1j
@@ -71,31 +75,54 @@ def radius_and_centre(r_1, centre_1, r_2, centre_2, r_3, centre_3): # it should 
     compcurve_3 = curve_3 * complex_3
 
     # centres of the 4th circle
-    # maybe we need to verify if there is 1 or 2 solutions...?
-    first_centre = (compcurve_1 + compcurve_2 + compcurve_3 + 2*sqrt(compcurve_1*compcurve_2 + compcurve_2*compcurve_3 + compcurve_3*compcurve_1))/curve_4 
-    first_centre_list = [first_centre.real, first_centre.imag]
+    # There is one solution but which one is it? is it + or is it minus?
+    # we need some condition # should it be negative? or should it be positive? or do we need both?
+    
+    # first condition: radii should be positive
+    neg_curve_4 = curve_1 + curve_2 + curve_3 - 2*math.sqrt(curve_1*curve_2 + curve_2*curve_3 + curve_3*curve_1)
+    if neg_curve_4 < 0:
+        second_centre = (compcurve_1 + compcurve_2 + compcurve_3 + 2*sqrt(compcurve_1*compcurve_2 + compcurve_2*compcurve_3 + compcurve_3*compcurve_1))/curve_4
+        second_centre_list = [second_centre.real, second_centre.imag]
+        df.loc[len(df)] = [r_4, second_centre_list, r_1, centre_1, r_2, centre_2, r_3, centre_3]
 
-    second_centre = (compcurve_1 + compcurve_2 + compcurve_3 - 2*sqrt(compcurve_1*compcurve_2 + compcurve_2*compcurve_3 + compcurve_3*compcurve_1))/curve_4
-    second_centre_list = [second_centre.real, second_centre.imag]
+    # we need another condition...
+    
+    else:
+        second_centre = (compcurve_1 + compcurve_2 + compcurve_3 + 2*sqrt(compcurve_1*compcurve_2 + compcurve_2*compcurve_3 + compcurve_3*compcurve_1))/curve_4
+        second_centre_list = [second_centre.real, second_centre.imag]
+        df.loc[len(df)] = [r_4, second_centre_list, r_1, centre_1, r_2, centre_2, r_3, centre_3]
+
+        first_centre = (compcurve_1 + compcurve_2 + compcurve_3 - 2*sqrt(compcurve_1*compcurve_2 + compcurve_2*compcurve_3 + compcurve_3*compcurve_1))/curve_4 
+        first_centre_list = [first_centre.real, first_centre.imag]
+        df.loc[len(df)] = [r_4, first_centre_list, r_1, centre_1, r_2, centre_2, r_3, centre_3]
 
     # we need to keep a record of the three circles for each new circle plotted...
     # not happy that the main dataframe is coming from a global variable... we can fix this later
-    df.loc[len(df)] = [r_4, first_centre_list, r_1, centre_1, r_2, centre_2, r_3, centre_3]
-    df.loc[len(df)] = [r_4, second_centre_list, r_1, centre_1, r_2, centre_2, r_3, centre_3]
+
+
+
+radius_and_centre(df.iloc[0, 0], df.iloc[0, 1], df.iloc[1, 0], df.iloc[1, 1], df.iloc[2, 0], df.iloc[2, 1])
+
+for i in range(3, 4):
+    radius_and_centre(df.iloc[i, 0], df.iloc[i, 1], df.iloc[i, 2], df.iloc[i, 3], df.iloc[i, 6], df.iloc[i, 7])
+    radius_and_centre(df.iloc[i, 0], df.iloc[i, 1], df.iloc[i, 2], df.iloc[i, 3], df.iloc[i, 4], df.iloc[i, 5])
+    radius_and_centre(df.iloc[i, 0], df.iloc[i, 1], df.iloc[i, 4], df.iloc[i, 5], df.iloc[i, 6], df.iloc[i, 7])
+
 
 def plotter(df):
+    '''
+    Parameter:
+    df: pandas dataframe, taking radius and centre
+    plots on a subplot
+    '''
     for i in range(2, len(df)):
         radius = df.iloc[i, 0]
         centre = df.iloc[i, 1]
-        x = radius*np.cos(theta) - centre[0]
-        y = radius*np.sin(theta) - centre[1]
+        x = radius*np.cos(theta) + centre[0]
+        y = radius*np.sin(theta) + centre[1]
         ax.plot(x, y)
 
-radius_and_centre(-1, [0,0], 1/2, [-1/2, 0], 1/2, [1/2, 0])
 plotter(df)
 
-plt.show()
-print(df);
-
-
+plt.show();
 # we need to create a tree of some sorts...?
