@@ -1,3 +1,7 @@
+# Miscellaneous Pet Projects:
+
+
+
 In this repository, there are several pet projects I am working on, each in different files, named accordingly.
 
 Mandelbrot & Julia Set: in progress
