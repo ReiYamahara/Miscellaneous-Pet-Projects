@@ -45,22 +45,34 @@ def julia_set_plot(iteration_array, fps = 10, dpi = 100, cmap = 'Blues'):
         plt.pause(1/fps)
     plt.show();
 
-# another method:
-def julia_set_plot_v2(iteration_array, fps = 30, dpi = 100, cmap = 'Blues', repeat_delay = 100):
+# another method: # dpi is the main determinant how fast it can go
+def julia_set_plot_v2(iteration_array, interval = 20, dpi = 100, cmap = 'Blues', repeat_delay = 200):
+    '''
+    '''
     fig, ax = plt.subplots(dpi = dpi)
     ax.axis('off')
     ims = []
     for i in range(len(iteration_array)):
         im = ax.imshow(iteration_array[i], animated = True, cmap = cmap)
         ims.append([im])
-    anim = animation.ArtistAnimation(fig, ims, interval = 1000/fps, blit = True, repeat_delay = repeat_delay)
+    anim = animation.ArtistAnimation(fig, ims, interval = interval, blit = True, repeat_delay = repeat_delay)
     plt.show();
 
+# saving as a gif
+def julia_set_save(iteration_array, interval = 20, dpi = 100, cmap = 'Blues', repeat_delay = 200):
+    '''
+    saves the julia set animation as a gif
+    '''
+    fig, ax = plt.subplots(dpi = dpi)
+    ax.axis('off')
+    ims = []
+    for i in range(len(iteration_array)):
+        im = ax.imshow(iteration_array[i], animated = True, cmap = cmap)
+        ims.append([im])
+    anim = animation.ArtistAnimation(fig, ims, interval = interval, blit = True, repeat_delay = repeat_delay)
 
-# def animate(i):
-    # plt.imshow(iteration_array[i],cmap = 'Blues', interpolation = 'None' )
-iteration_array = julia_set(iterations = 100)
-julia_set_plot_v2(iteration_array)
+    anim.save(f'julia_set_{cmap.lower()}_{len(iteration_array)}.gif', writer = 'pillow')
 
-
-
+# save as a gif without having to plot it...
+iteration_array = julia_set(x_pixels = 2000, iterations = 100)
+julia_set_save(iteration_array, interval = 50, dpi = 300)

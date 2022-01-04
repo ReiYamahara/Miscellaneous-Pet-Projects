@@ -23,7 +23,6 @@ plt.figure(dpi = 100)
 plt.imshow(array, cmap = 'RdBu', interpolation = 'None')
 plt.axis("off")
 plt.show()
-;
 
 # possible improvements:
 # - what to do if z becomes very large
