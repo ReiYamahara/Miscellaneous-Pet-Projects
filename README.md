@@ -1,9 +1,7 @@
-# Graphing
-project_1: plotting Mandelbrot set and Julia set
+In this repository, there are several pet projects I am working on, each in different files, named accordingly.
 
-project_2: animation of Mandelbrot and Julia set
-
-project_3: Apollonian Gasket
+Mandelbrot & Julia Set: in progress
+Apollonian Gasket: in progress
 
 ![Example: Julia set](../images/Mandelbrot and Julia Set/julia_set_0.28+0.008j_1.png)
 
