@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 def mandelbrot_set(x_pixels = 1000, iterations = 30):
     '''
@@ -43,5 +44,32 @@ def mandelbrot_set_plot(iteration_array, fps = 10, dpi = 100, cmap = 'Blues'):
         plt.pause(1/fps)
     plt.show();
 
-iteration_array = mandelbrot_set(iterations = 100)
-mandelbrot_set_plot(iteration_array, fps = 100, dpi = 500, cmap = 'RdBu')
+def mandelbrot_set_plot_v2(iteration_array, interval = 20, dpi = 100, cmap = 'RdBu', repeat_delay = 200):
+    '''
+    '''
+    fig, ax = plt.subplots(dpi = dpi)
+    ax.axis('off')
+    ims = []
+    for i in range(len(iteration_array)):
+        im = ax.imshow(iteration_array[i], animated = True, cmap = cmap)
+        ims.append([im])
+    anim = animation.ArtistAnimation(fig, ims, interval = interval, blit = True, repeat_delay = repeat_delay)
+    plt.show();
+
+# saving as a gif
+def mandelbrot_set_save(iteration_array, interval = 20, dpi = 100, cmap = 'RdBu', repeat_delay = 200):
+    '''
+    saves the julia set animation as a gif
+    '''
+    fig, ax = plt.subplots(dpi = dpi)
+    ax.axis('off')
+    ims = []
+    for i in range(len(iteration_array)):
+        im = ax.imshow(iteration_array[i], animated = True, cmap = cmap)
+        ims.append([im])
+    anim = animation.ArtistAnimation(fig, ims, interval = interval, blit = True, repeat_delay = repeat_delay)
+
+    anim.save(f'mandelbrot_set_{cmap.lower()}_{len(iteration_array)}.gif', writer = 'pillow')
+
+iteration_array = mandelbrot_set(x_pixels = 2000, iterations = 100)
+mandelbrot_set_save(iteration_array, interval = 50, dpi = 300, cmap = 'RdBu')
