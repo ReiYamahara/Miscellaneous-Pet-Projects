@@ -7,6 +7,8 @@ In this repository, there are several pet projects I am working on, each in diff
 Mandelbrot & Julia Set: in progress
 Apollonian Gasket: in progress
 
+---
+
 ![Example: Julia set](../images/Mandelbrot and Julia Set/julia_set_0.28+0.008j_1.png)
 
 ![Example: Julia set](julia_set_blues_100.gif)
