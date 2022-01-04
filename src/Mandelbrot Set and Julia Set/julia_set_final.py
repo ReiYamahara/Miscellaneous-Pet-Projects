@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-x_pixels = 500
+x_pixels = 5000
 y_pixels = round((2/3) * x_pixels)
 x_lower_bound = -2
 y_lower_bound = 2/3 * x_lower_bound
@@ -10,9 +10,9 @@ y=np.linspace(y_lower_bound, y_lower_bound*(-1), y_pixels) * 1j
 complex_num = x + y.reshape(y_pixels, 1)
 array=np.zeros((y_pixels, x_pixels))
 
-iteration = 15
+iteration = 150
 z = complex_num
-c = 0
+c = 0.28 + 0.008j
 '''
 values to test out:
 c = 0.285, 0.28 + 0.008j, 0.3 - 0.01j
