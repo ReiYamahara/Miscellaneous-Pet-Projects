@@ -65,7 +65,7 @@ def julia_set_save_image(iteration_array, frame, dpi = 300, cmap = 'Blues'):
     plt.figure(dpi = dpi)
     plt.axis('off')
     plt.imshow(iteration_array[frame - 1], cmap = cmap, interpolation = 'None')
-    file = f'../Miscellaneous-Pet-Projects/Mandelbrot & Julia Sets/images/julia_set_{cmap.lower()}_{len(iteration_array)}.gif'
+    file = f'../images/julia_set_{cmap.lower()}_{len(iteration_array)}.gif'
     plt.savefig(file)
 
 # one possible method of animating:
@@ -111,5 +111,5 @@ def julia_set_save_gif(iteration_array, interval = 50, dpi = 100, cmap = 'Blues'
         im = ax.imshow(iteration_array[i], animated = True, cmap = cmap)
         ims.append([im])
     anim = animation.ArtistAnimation(fig, ims, interval = interval, blit = True, repeat_delay = repeat_delay)
-    file = f'../Miscellaneous-Pet-Projects/Mandelbrot & Julia Sets/gifs/julia_set_{cmap.lower()}_{len(iteration_array)}.gif'
+    file = f'../gifs/julia_set_{cmap.lower()}_{len(iteration_array)}.gif'
     anim.save(file, writer = 'pillow')
