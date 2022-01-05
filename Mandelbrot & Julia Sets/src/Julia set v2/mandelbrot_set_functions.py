@@ -68,7 +68,6 @@ def mandelbrot_set_save(iteration_array, interval = 20, dpi = 100, cmap = 'RdBu'
         im = ax.imshow(iteration_array[i], animated = True, cmap = cmap)
         ims.append([im])
     anim = animation.ArtistAnimation(fig, ims, interval = interval, blit = True, repeat_delay = repeat_delay)
-
     anim.save(f'mandelbrot_set_{cmap.lower()}_{len(iteration_array)}.gif', writer = 'pillow')
 
 iteration_array = mandelbrot_set(x_pixels = 2000, iterations = 100)
