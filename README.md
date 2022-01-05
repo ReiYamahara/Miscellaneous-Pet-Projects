@@ -11,7 +11,7 @@ Apollonian Gasket: in progress
 
 
 
-![Example: Julia set](Mandelbrot and Julia Sets/gifs/julia_set_blues_100.gif)
+![Example: Julia set] (Mandelbrot and Julia Sets/gifs/julia_set_blues_100.gif)
 
 
 ---
