@@ -10,8 +10,8 @@ Mandelbrot & Julia Set: (started 08/21; finished: still in progress)
 Apollonian Gasket: (started 12/21; finished: still in progress)
 
 ---
-![Example](julia_set_blues_100.gif)
+![Example](images/julia_set_blues_100.gif)
 
 ---
-![Example: Mandelbrot set](julia_set_rdbu_50.gif)
+![Example: Mandelbrot set](images/julia_set_rdbu_50.gif)
 
