@@ -61,6 +61,14 @@ def julia_set_plot_single_frame(iteration_array, frame, dpi = 200, cmap = 'Blues
 def julia_set_save_image(iteration_array, frame, dpi = 300, cmap = 'Blues'):
     '''
     saves a frame of the julia set as an image
+
+    parameters:
+    iteration_array: 3d numpy array holding each frame of the julia set
+    frame: the specfic frame that is going to be plotted (dtype = int)
+    dpi: dots per inch (dtype = int)
+    cmap: colourmap (dtype = str)
+
+    returns an image which is put in the image folder
     '''
     plt.figure(dpi = dpi)
     plt.axis('off')
@@ -69,10 +77,17 @@ def julia_set_save_image(iteration_array, frame, dpi = 300, cmap = 'Blues'):
     plt.savefig(file)
 
 # one possible method of animating:
-def julia_set_plot_frames(iteration_array, frame, dpi = 200, cmap = 'Blues'):
+def julia_set_plot_frames(iteration_array, fps = 25, dpi = 200, cmap = 'Blues'):
     '''
     animates the julia set frames within iteration_array
+
     parameters:
+    iteration_array: 3d numpy array holding each frame of the julia set
+    fps = frames per second (dtype = int)
+    dpi: dots per inch (dtype = int)
+    cmap: colourmap (dtype = str)
+
+    returns an animated plot of the julia set
     '''
     for i in range(len(iteration_array)): # from 1 to iteration + 1 because array is a zero array    
         plt.clf() # clears the figure
@@ -87,7 +102,15 @@ def julia_set_plot_frames(iteration_array, frame, dpi = 200, cmap = 'Blues'):
 def julia_set_plot_frames_v2(iteration_array, interval = 20, dpi = 100, cmap = 'Blues', repeat_delay = 200):
     '''
     animates the julia set frames within iteration_array
+
     parameters:
+    iteration_array: 3d numpy array holding each frame of the julia set
+    interval: milliseconds per frame (dtpe = int)
+    dpi: dots per inch (dtype = int)
+    cmap: colourmap (dtype = str)
+    repeat_delay: the delay in milliseconds between consecutive animation runs (dtype = int)
+
+    returns an animated plot of the julia set which is saved in the gif folder
     '''
     fig, ax = plt.subplots(dpi = dpi)
     ax.axis('off')
@@ -102,7 +125,15 @@ def julia_set_plot_frames_v2(iteration_array, interval = 20, dpi = 100, cmap = '
 def julia_set_save_gif(iteration_array, interval = 50, dpi = 100, cmap = 'Blues', repeat_delay = 200):
     '''
     saves the julia set animation as a gif
+
     parameters:
+    iteration_array: 3d numpy array holding each frame of the julia set
+    interval: milliseconds per frame (dtpe = int)
+    dpi: dots per inch (dtype = int)
+    cmap: colourmap (dtype = str)
+    repeat_delay: the delay in milliseconds between consecutive animation runs (dtype = int)
+
+    returns an animated plot of the julia set
     '''
     fig, ax = plt.subplots(dpi = dpi)
     ax.axis('off')
@@ -113,3 +144,7 @@ def julia_set_save_gif(iteration_array, interval = 50, dpi = 100, cmap = 'Blues'
     anim = animation.ArtistAnimation(fig, ims, interval = interval, blit = True, repeat_delay = repeat_delay)
     file = f'../gifs/julia_set_{cmap.lower()}_{len(iteration_array)}.gif'
     anim.save(file, writer = 'pillow')
+
+# animation that zooms in of the mandelbrot set and gets updated
+# slider for the animation between frames
+# slider for zooming in and out
