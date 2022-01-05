@@ -13,7 +13,7 @@ Apollonian Gasket: in progress
 
 ![Example: Julia set](Mandelbrot & Julia Set/gifs/julia_set_blues_100.gif)
 
-<img src="Mandelbrot & Julia Set/gifs/julia_set_blues_100.gif"> <p>
+<img src="Mandelbrot & Julia Set/gifs/julia_set_blues_100.gif" width="500"/> <p>
   
   /Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot & Julia Sets
 
