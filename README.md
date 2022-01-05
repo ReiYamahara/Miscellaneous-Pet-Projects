@@ -9,6 +9,7 @@ Apollonian Gasket: in progress
 
 ---
 ![Example](julia_set_blues_100.gif)
+
 ---
 ![Example: Mandelbrot set](julia_set_rdbu_50.gif)
 
