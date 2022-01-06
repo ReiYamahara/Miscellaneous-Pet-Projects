@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from matplotlib.widgets import Slider
 
 def julia_set_frames(c = 0.28 + 0.008j, x_pixels = 1000, iterations = 30):
     '''
@@ -145,6 +146,42 @@ def julia_set_save_gif(iteration_array, interval = 50, dpi = 100, cmap = 'Blues'
     file = f'../gifs/julia_set_{cmap.lower()}_{len(iteration_array)}.gif'
     anim.save(file, writer = 'pillow')
 
-# animation that zooms in of the mandelbrot set and gets updated
 # slider for the animation between frames
+def julia_set_slider_frames(iteration_array, dpi = 200):
+    '''
+    '''
+    fig, ax = plt.subplots(dpi = dpi) # defining the figure and axes
+    ax.axis('off') 
+    # initial plot
+    iterations = len(iteration_array)
+    plt.imshow(iteration_array[iterations - 1], cmap = 'Blues')
+
+    # defining the location of the slider
+    ax_slider = plt.axes([0.25, 0.1, 0.65, 0.03])
+    # defining the slider itself:
+    # parameters: axes reference; label of the slider; min value of the slider; max value of the slider;
+    # valinit: starting point on the slider
+    # valstep: the steps of the slider
+    slider_frames = Slider(ax_slider, 'Number of Iterations: ', 1, iterations - 1, valinit = iterations - 1, valstep = 1)
+
+    # we will define update as the callback function for the slider. It receives the current value of the slider, 
+    # clears the previous plot on the axis, and plots the graph with the new value
+    def update(frame):
+        ax.clear()
+        ax.axis('off')
+        ax.imshow(iteration_array[frame], cmap = 'Blues')
+
+    # this captures the on_canged event on the slider and then calls the callback function, update
+    slider_frames.on_changed(update)
+    plt.show();
+    
+'''iteration_array = julia_set_frames(x_pixels = 1000, iterations = 150)
+julia_set_slider_frames(iteration_array, dpi = 400)'''
+
+## Slider modifications to do:
+# size, location and quality of the slider, especially relative to the plot
+# Can we do it from the list of images...? or is it not possible...?
+# other functions to include: quit function, reset function...
+
+# animation that zooms in of the mandelbrot set and gets updated
 # slider for zooming in and out
