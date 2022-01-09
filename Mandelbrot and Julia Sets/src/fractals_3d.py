@@ -69,3 +69,16 @@ plot_type = 'meshplot', face_colour = [0.1, 0, 0], cmap = 'pink', interval = 300
 X, Y, iteration_array = julia_set_frames_3d(c = 0, x_pixels = 1000, iterations =30)
 julia_set_3d_landscape_animation(X, Y, iteration_array)
 
+# error to correct: because of this, there are some frames that are not being rendered
+'''
+/Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/fractals_3d.py:22: RuntimeWarning: overflow encountered in power
+  return np.e **(-np.abs(Z))
+/Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/fractals_3d.py:22: RuntimeWarning: overflow encountered in absolute
+  return np.e **(-np.abs(Z))
+/Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/fractals_3d.py:25: RuntimeWarning: overflow encountered in square
+  Z = Z ** 2 + c
+/Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/fractals_3d.py:25: RuntimeWarning: invalid value encountered in square
+  Z = Z ** 2 + c
+/Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/fractals_3d.py:64: UserWarning: Z contains NaN values. This may result in rendering artifacts.
+  im = ax.plot_surface(X, Y, iteration_array[i], animated = True, cmap = cmap)
+  '''
