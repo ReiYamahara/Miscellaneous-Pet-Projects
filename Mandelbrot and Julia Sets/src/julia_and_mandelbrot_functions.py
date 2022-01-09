@@ -235,11 +235,20 @@ def julia_set_slider_frames(iteration_array, dpi = 200, cmap = 'Blues'):
     exit.on_clicked(quit)
 
     plt.show();
-'''
-iteration_array = julia_set_frames(x_pixels = 1000, iterations = 150)
+
+iteration_array = julia_set_frames_v2(x_pixels = 1000, iterations = 150)
 julia_set_slider_frames(iteration_array, dpi = 200)
+
+# error to correct...
 '''
-# 
+/Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/julia_and_mandelbrot_functions.py:69: RuntimeWarning: overflow encountered in absolute
+  condition = (abs(Z) >= 2) # absolute value of z is greater than 0 and the array value has not been filled
+/Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/julia_and_mandelbrot_functions.py:68: RuntimeWarning: overflow encountered in square
+  Z = Z ** 2 + c
+/Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/julia_and_mandelbrot_functions.py:68: RuntimeWarning: invalid value encountered in square
+  Z = Z ** 2 + c
+  '''
+
 ## Slider modifications to do:
 # Attempt at changing colours... probably going to need classes...
 '''   
