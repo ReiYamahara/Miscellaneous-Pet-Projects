@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from matplotlib.widgets import Slider
+from matplotlib.widgets import Slider, Button
 
-
+# version 1 of making julia set frames: this one is more clunky...
 def julia_set_frames(c = 0.28 + 0.008j, x_pixels = 1000, iterations = 30):
     '''
     creates a frame for each iteration of the julia set function and stores it in a numpy array
@@ -41,6 +41,35 @@ def julia_set_frames(c = 0.28 + 0.008j, x_pixels = 1000, iterations = 30):
             iteration_array[i] = iteration_array[i - 1]
             iteration_array[i][condition] = i
 
+    return iteration_array
+
+# version 2 of making julia set frames: much cleaner + use of meshgrid
+def julia_set_frames_v2(c = 0.28 + 0.008j, x_pixels = 1000, limits = [-2, 2, -4/3, 4/3], iterations = 30):
+    '''
+    '''
+    if c == 0:
+        limits = [-2, 1.5, -7/6, 7/6]
+    y_pixels = round(x_pixels * ((limits[3] - limits[2])/(limits[1 ]- limits[0])))
+    x = np.linspace(limits[0], limits[1], x_pixels)
+    y = np.linspace(limits[2], limits[3], y_pixels)
+    X, Y = np.meshgrid(x, y)
+
+    iteration_array = np.full((iterations, y_pixels, x_pixels), iterations)
+
+    Z = X + Y * 1j
+    if c == 0:
+        c = Z
+    for i in range(iterations):
+        if i == 0:
+            Z = Z ** 2 + c
+            condition = (abs(Z) >= 2)
+            iteration_array[i][condition] = i
+        else:
+            Z = Z ** 2 + c
+            condition = (abs(Z) >= 2) # absolute value of z is greater than 0 and the array value has not been filled
+            iteration_array[i] = iteration_array[i - 1]
+            iteration_array[i][condition] = i
+        
     return iteration_array
 
 
@@ -171,33 +200,62 @@ def julia_set_slider_frames(iteration_array, dpi = 200, cmap = 'Blues'):
     iterations = len(iteration_array)
     plt.imshow(iteration_array[iterations - 1], cmap = 'Blues')
 
-    # defining the location of the slider
-    ax_slider = plt.axes([0.25, 0.1, 0.65, 0.03])
+    # defining the location of the slider: [left, bottom, width, height]
+    slider_loc = plt.axes([0.3, 0.1, 0.4, 0.025])
     # defining the slider itself:
     # parameters: axes reference; label of the slider; min value of the slider; max value of the slider;
     # valinit: starting point on the slider
     # valstep: the steps of the slider
-    slider_frames = Slider(ax_slider, 'Number of Iterations: ', 1, iterations - 1, valinit = iterations - 1, valstep = 1)
-
+    slider_frames = Slider(slider_loc, 'Number of Iterations: ', 1, iterations - 1, valinit = iterations - 1, valstep = 1)
     # we will define update as the callback function for the slider. It receives the current value of the slider, 
     # clears the previous plot on the axis, and plots the graph with the new value
-    def update(frame):
+    def update(frame, cmap = 'Blues'):
         ax.clear()
         ax.axis('off')
         ax.imshow(iteration_array[frame], cmap = cmap)
-
     # this captures the on_canged event on the slider and then calls the callback function, update
     slider_frames.on_changed(update)
+
+    # defining the location of the reset button
+    reset_loc = plt.axes([0.8, 0.1, 0.1, 0.03])
+    button = Button(reset_loc, 'Reset', hovercolor='0.975')
+    # defining the reset button: resets to the initial farme
+    def reset(event):
+        slider_frames.reset()
+    # when the reset button is clicked, it calls the callback function, reset
+    button.on_clicked(reset)
+
+    # defining the location of the quit button
+    quit_loc = plt.axes([0.5, 0.03, 0.1, 0.03])
+    exit = Button(quit_loc, 'Quit')
+    # defining the quit button: quits the figure
+    def quit(event):
+        plt.close('all')
+    # when the quit button is clicked, it calls the quit function
+    exit.on_clicked(quit)
+
     plt.show();
-
- 
-'''iteration_array = julia_set_frames(x_pixels = 1000, iterations = 150)
-julia_set_slider_frames(iteration_array, dpi = 400)'''
-
+'''
+iteration_array = julia_set_frames(x_pixels = 1000, iterations = 150)
+julia_set_slider_frames(iteration_array, dpi = 200)
+'''
+# 
 ## Slider modifications to do:
-# size, location and quality of the slider, especially relative to the plot
-# Can we do it from the list of images...? or is it not possible...?
-# other functions to include: quit function, reset function...
+# Attempt at changing colours... probably going to need classes...
+'''   
+ colour_1_loc = plt.axes([0.2, 0.05, 0.1, 0.025])
+    colour_1 = Button(colour_1_loc, 'RdBu')
+    def change_colour_1(frame, cmap = 'RdBu'):
+        slider_frames = Slider(slider_loc, 'Number of Iterations: ', 1, iterations - 1, valinit = iterations - 1, valstep = 1)
+        ax.clear()
+        ax.axis('off')
+        update(frame, cmap)
+        slider_frames.on_changed(update)
+    colour_1.on_clicked(change_colour_1)
+'''
+# size, location and quality of the slider, especially relative to the plot: it only works for when the dpi is around 200: otherwise it looks weird.
 
+# Can we do print from the list of images...? or is that not possible...?
 # animation that zooms in of the mandelbrot set and gets updated
 # slider for zooming in and out
+# add background colour: ax.set_facecolour([0, 0, 0])
