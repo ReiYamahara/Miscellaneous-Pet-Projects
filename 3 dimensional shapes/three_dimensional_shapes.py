@@ -63,6 +63,9 @@ def klein_bottle(num_points = 100):
         z = r * np.sin(phi)
         return x, y, z
 
+    x, y, z = f(theta, phi)
+    return x, y, z
+
 
 def rotation_matrix(num_points = 100, axis = 'x'):
     '''
@@ -74,7 +77,7 @@ def rotation_matrix(num_points = 100, axis = 'x'):
 
     returns a rotation matrix around an axis (dtype = 3 by 3 numpy array)
     '''
-    a = (2 * np.pi)/100
+    a = (4 * np.pi)/num_points
     rotation_matrix_x = np.array([[1.0, 0, 0], 
                                 [0, np.cos(a), -np.sin(a)], 
                                 [0, np.sin(a), np.cos(a)]])
@@ -120,9 +123,7 @@ interval = 10, repeat_delay = 0, plot_type = 'meshplot', show = 'yes'):
     ax = plt.axes(projection = '3d')
     ax.view_init(view_position[0], view_position[1])
     ax.set_facecolor(background_colour) # background colour
-    ax.set_zlim(-3,3)
-    ax.set_ylim(-3,3)
-    ax.dist = 10
+    ax.dist = ax_dist
     ax.axis('off')
     plots = []
 
@@ -167,7 +168,7 @@ def animation_into_gif(anim, file_name = 'donut.gif'):
 # different plot style: try and get contourf3D to work...
 # try different shapes (klein bottle? mobius strip...?)
 
-x, y, z = klein_bottle()
+x, y, z = donut_shape()
 animation_into_gif(rotate_3d_shape_animation(x, y, z, rotation_matrix(), 
-background_colour = 'beige', cmap = 'twilight_shifted', view_position = [30, -73], ax_dist = 5, show = 1), file_name = 'mobius_strip.gif')
+background_colour = 'beige', cmap = 'twilight_shifted', interval = 5, show = 1), file_name = 'torus.gif')
 
