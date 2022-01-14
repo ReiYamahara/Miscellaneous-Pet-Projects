@@ -24,6 +24,46 @@ def donut_shape(num_points = 100, donut_radius = 3, hole_radius = 1):
     z = d * np.sin(theta)
     return x, y, z
 
+def mobius_strip(num_points = 100, width = 1):
+    # the range of a represents the width of the strip 
+    a = width/2
+    theta = np.linspace(0, 2*np.pi, num_points)
+    a = np.linspace(-a, a, num_points)
+
+    #placing in a meshgrid because ax.plot_surface only accepts 2d arrays.
+    Theta, A = np.meshgrid(theta,a)
+
+    def f(u, v):
+        return (1 + v * np.cos(u/2)) * np.cos(u)
+    def g(u,v):
+        return (1 + v * np.cos(u/2)) * np.sin(u)
+    def h(u,v):
+        return v * np.sin(u/2)
+
+    x = f(Theta, A)
+    y = g(Theta, A)
+    z = h(Theta, A)
+
+    return x, y, z
+
+def klein_bottle(num_points = 100):
+    theta = np.linspace(0, 2*np.pi, num_points)
+    theta, phi = np.meshgrid(theta, theta)
+
+    def f(theta, phi):
+        # the klein bottle is 2 shapes combined into 1
+        first_half = (0 <= theta) & (theta < np.pi)
+        r = 4 * (1 - np.cos(theta)/2)
+
+        x = 6 * np.cos(theta) * (1 + np.sin(theta)) + r * np.cos(phi + np.pi)
+        # overwriting the array
+        x[first_half] = ((6 * np.cos(theta) * (1 + np.sin(theta)) + r * np.cos(theta) * np.cos(phi))[first_half])
+        y = 16 * np.sin(theta)
+        y[first_half] = (16 * np.sin(theta) + r * np.sin(theta) * np.cos(phi))[first_half]
+        z = r * np.sin(phi)
+        return x, y, z
+
+
 def rotation_matrix(num_points = 100, axis = 'x'):
     '''
     gives the rotation matrix around a certain an axis over a certain number of degrees (angle)
@@ -127,6 +167,7 @@ def animation_into_gif(anim, file_name = 'donut.gif'):
 # different plot style: try and get contourf3D to work...
 # try different shapes (klein bottle? mobius strip...?)
 
-x, y, z = donut_shape()
-animation_into_gif(rotate_3d_shape_animation(x, y, z, rotation_matrix(), show = 'no'))
+x, y, z = klein_bottle()
+animation_into_gif(rotate_3d_shape_animation(x, y, z, rotation_matrix(), 
+background_colour = 'beige', cmap = 'twilight_shifted', view_position = [30, -73], ax_dist = 5, show = 1), file_name = 'mobius_strip.gif')
 
