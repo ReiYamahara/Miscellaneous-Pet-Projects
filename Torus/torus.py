@@ -1,8 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-# a and b are parameters
-# c and d are constants
+
 def donut_shape(num_points = 100, donut_radius = 3, hole_radius = 1):
     '''
     calculates the coordinates of a donut (also known as a torus)
@@ -56,7 +55,7 @@ def rotation_matrix(num_points = 100, axis = 'x'):
 
 def rotate_3d_shape_animation(x, y, z, rotation_matrix, dpi = 200, view_position = [36, 26], 
 background_colour = [0.2, 0, 0], ax_dist = 10, rstride = 3, cstride = 3, cmap = 'pink',
-interval = 10, repeat_delay = 0, plot_type = 'meshplot'):
+interval = 10, repeat_delay = 0, plot_type = 'meshplot', show = 'yes'):
     '''
     gives an animation of the rotation of a 3d shape (e.g. torus/donut)
 
@@ -110,11 +109,24 @@ interval = 10, repeat_delay = 0, plot_type = 'meshplot'):
         plots.append([plot])
     
     anim = animation.ArtistAnimation(fig, plots, interval = interval, blit = True, repeat_delay = repeat_delay)
-    plt.show();
+    if show == 'yes':
+        plt.show()
+    return anim
+
+def animation_into_gif(anim, file_name = 'donut.gif'):
+    '''
+    turns the animation into a gif
+
+    parameters:
+    anim: object returned from rotate_3d_shape_animation
+    file_name: name of the file
+    '''
+    anim.save(file_name, writer = 'pillow')
 
 # make into gif
 # different plot style: try and get contourf3D to work...
 # try different shapes (klein bottle? mobius strip...?)
 
 x, y, z = donut_shape()
-rotate_3d_shape_animation(x, y, z, rotation_matrix(), plot_type = 'wireplot')
+animation_into_gif(rotate_3d_shape_animation(x, y, z, rotation_matrix(), show = 'no'))
+
