@@ -169,6 +169,6 @@ def animation_into_gif(anim, file_name = 'donut.gif'):
 # try different shapes (klein bottle? mobius strip...?)
 
 x, y, z = donut_shape(num_points = 50)
-animation_into_gif(rotate_3d_shape_animation(x, y, z, rotation_matrix(num_points = 50), 
-background_colour = 'beige', cmap = 'twilight_shifted', interval = 2, show = 1), file_name = 'torus.gif')
+rotate_3d_shape_animation(x, y, z, rotation_matrix(num_points = 50), 
+background_colour = 'beige', cmap = 'twilight_shifted', interval = 2)
 
