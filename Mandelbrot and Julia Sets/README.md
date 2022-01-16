@@ -6,4 +6,10 @@ To access the code, go to src/julia_and_mandelbrot_function.py and test out in s
 ![test](gifs/julia_set_blues_100.gif)
 
 ---
-![test](gifs/julia_set_rdbu_50.gif)
+![test](gifs/julia_set_rdbu_140.gif)
+
+---
+![test](gifs/julia_set_rdbu_160.gif)
+
+---
+![test](gifs/julia_set_rdbu_170.gif)
