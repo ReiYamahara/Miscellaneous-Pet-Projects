@@ -106,7 +106,7 @@ def julia_set_save_image(iteration_array, frame, dpi = 300, cmap = 'Blues'):
     plt.figure(dpi = dpi)
     plt.axis('off')
     plt.imshow(iteration_array[frame - 1], cmap = cmap, interpolation = 'None')
-    file = f'../images/julia_set_{cmap.lower()}_{len(iteration_array)}.gif'
+    file = f'../images/julia_set_{cmap.lower()}_{len(iteration_array)}.png'
     plt.savefig(file)
 
 

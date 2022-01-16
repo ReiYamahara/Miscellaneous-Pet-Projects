@@ -154,7 +154,7 @@ interval = 10, repeat_delay = 0, plot_type = 'meshplot', show = 'yes'):
         plt.show()
     return anim
 
-def animation_into_gif(anim, file_name = 'donut.gif'):
+def animation_into_gif(anim, file_name = '../gifs/donut.gif'):
     '''
     turns the animation into a gif
 
