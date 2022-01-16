@@ -22,4 +22,4 @@ In chronological order:
 ![Example: Rotating Torus](images/donut.gif)
 
 ---
-![Example: Fractal Landscape](images/fractal_landscape.gif)
+![Example: Fractal Landscape](images/fractal_landscape.png)
