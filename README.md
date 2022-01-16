@@ -16,6 +16,9 @@ In chronological order:
 ![Example: Julia set](images/julia_set_blues_100.gif)
 
 ---
+![Example: Julia set](images/julia_set_rdbu_150.gif)
+
+---
 ![Example: Mandelbrot set](images/julia_set_rdbu_50.gif)
 
 ---
