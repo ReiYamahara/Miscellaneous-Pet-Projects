@@ -2,61 +2,65 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 
-def random_uniform(): # alter the range of the uniform to change the roughness of the terrain
-    return 2 ** (-random.uniform(0.8, 1))
-
-def rand(iter):
-    return random.uniform(-0.5, 0.5) * random_uniform() ** iter
 
 # how can I make the diamond_square algorithm faster...?
-def diamond_square_algo(iterations = 6):
+def diamond_square_algo(iterations = 6, k = 5):
     '''
     returns a 2d numpy array, z, using the diamond square algorithm.
     the dimensions of z have to be (2^n + 1, 2^n + 1) where n in the number of iterations
 
     parameter:
     iterations: the number of iterations (this determines the size of the numpy array)å
+    k: roughness (a higher k value implies a rougher surface)
     '''
     pixels = 2 ** iterations + 1
-    z = np.zeros((pixels, pixels))
+    array = np.zeros((pixels, pixels))
+
+    def random_uniform(a = -1, b = 1):
+        return np.random.uniform(a, b)
+
+    def random_normal(mean = 0, sigma = 1):
+        return np.random.normal(mean, sigma)
 
     # random initialisation of the 4 points
-    z[0][0] = rand(0)
-    z[pixels - 1][0] = rand(0)
-    z[0][pixels - 1] = rand(0)
-    z[pixels - 1][pixels - 1] = rand(0)
+    array[0][0] = np.random.uniform(-1, 1)
+    array[-1][0] = np.random.uniform(-1, 1)
+    array[0][-1] = np.random.uniform(-1, 1)
+    array[-1][-1] = np.random.uniform(-1, 1)
 
     for iter in range(iterations):
         step = 2 ** (iterations - iter - 1)
-        # diamond step
+        # diamond step:
+        # we are going through every single point that is not 0: i represents the x-coordinate; j represents the y-coordinate
         for i in range(0, pixels - 1, step * 2):
             for j in range(0, pixels - 1, step * 2):
-
-                z[i + step][j + step] = (z[i][j] + z[i + step*2][j] + z[i][j + step*2] + z[i + step*2][j + step*2])/4 + rand(iter)
-
-        # square step
-        for i in range(pixels):
-            for j in range(pixels):
+                array[i + step][j + step] = (array[i][j] + array[i + step*2][j] + array[i][j + step*2] + array[i + step*2][j + step*2])/4 + k * np.random.uniform(-1, 1)
+        # square step:
+        for i in range(0, pixels, step):
+            for j in range(0, pixels, step):
                 # we need a better condition...
-                # if i % step == 0 and j % step == 0
-                if z[i][j] == 0 and i % step == 0 and j % step == 0:
-                    # at the edges, there are only three neighbouring points
+                if array[i][j] == 0:
+                    # at the edges, there are only three neighbouring points: a bit ugly but it does the job...
                     if i == 0:
-                        z[i][j] = (z[i][j - step] + z[i][j + step] + z[i + step][j])/3 + rand(iter)
+                        array[i][j] = (array[i][j - step] + array[i][j + step] + array[i + step][j])/3 + k * np.random.uniform(-1, 1)
                     elif i == pixels - 1:
-                        z[i][j] = (z[i][j - step] + z[i][j + step] + z[i - step][j])/3 + rand(iter)
+                        array[i][j] = (array[i][j - step] + array[i][j + step] + array[i - step][j])/3 + k * np.random.uniform(-1, 1)
                     elif j == 0:
-                        z[i][j] = (z[i][j + step] + z[i - step][j] + z[i + step][j])/3 + rand(iter)
+                        array[i][j] = (array[i][j + step] + array[i - step][j] + array[i + step][j])/3 + k * np.random.uniform(-1, 1)
                     elif j == pixels - 1:
-                        z[i][j] = (z[i][j - step] + z[i - step][j] + z[i + step][j])/3 + rand(iter)
+                        array[i][j] = (array[i][j - step] + array[i - step][j] + array[i + step][j])/3 + k * np.random.uniform(-1, 1)
                     else:
-                        z[i][j] = (z[i][j - step] + z[i][j + step] + z[i - step][j] + z[i + step][j])/4 + rand(iter)
-    return z, pixels
+                        array[i][j] = (array[i][j - step] + array[i][j + step] + array[i - step][j] + array[i + step][j])/4 + k * np.random.uniform(-1, 1)
+       
+        # smaller random offset per iteration
+        k /= 2
+    return array
 
-def fractal_landscape_plot(z, pixels, dpi = 200, background_colour = 'beige', view_init = [40, 30], 
+def fractal_landscape_plot(array, dpi = 200, background_colour = 'beige', view_init = [40, 30], 
 view_dist = 7, cmap = 'Blues', save = False):
     '''
     '''
+    pixels = array.shape[0]
     # np.mgrid creates a a coordinate system
     x, y = np.mgrid[0:pixels, 0:pixels]
     
@@ -65,7 +69,7 @@ view_dist = 7, cmap = 'Blues', save = False):
     ax.set_facecolor(background_colour)
     ax.axis('off')
     ax.view_init(view_init[0], view_init[1])
-    ax.plot_surface(x, y, z, cmap = cmap)
+    ax.plot_surface(x, y, array, cmap = cmap)
     ax.dist = view_dist
     if save == True:
         plt.savefig('fractal_landscape.png')
@@ -77,5 +81,5 @@ def cloud(z):
     plt.axis('off')
     plt.show()
 
-z, pixels = diamond_square_algo(10)
-cloud(z)
+array= diamond_square_algo(6, k = 10)
+fractal_landscape_plot(array)

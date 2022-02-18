@@ -50,11 +50,11 @@ def julia_set_frames_v2(c = 0.28 + 0.008j, x_pixels = 1000, limits = [-2, 2, -4/
     if c == 0:
         limits = [-2, 1.5, -7/6, 7/6]
     y_pixels = round(x_pixels * ((limits[3] - limits[2])/(limits[1 ]- limits[0])))
-    x = np.linspace(limits[0], limits[1], x_pixels)
-    y = np.linspace(limits[2], limits[3], y_pixels)
+    x = np.linspace(limits[0], limits[1], x_pixels, dtype= 'float64')
+    y = np.linspace(limits[2], limits[3], y_pixels, dtype = 'float64')
     X, Y = np.meshgrid(x, y)
 
-    iteration_array = np.full((iterations, y_pixels, x_pixels), iterations)
+    iteration_array = np.full((iterations, y_pixels, x_pixels), iterations, dtype = 'float64')
 
     Z = X + Y * 1j
     if c == 0:
@@ -71,7 +71,6 @@ def julia_set_frames_v2(c = 0.28 + 0.008j, x_pixels = 1000, limits = [-2, 2, -4/
             iteration_array[i][condition] = i
         
     return iteration_array
-
 
 def julia_set_plot_single_frame(iteration_array, frame, dpi = 200, cmap = 'Blues'):
     '''
@@ -236,9 +235,8 @@ def julia_set_slider_frames(iteration_array, dpi = 200, cmap = 'Blues'):
 
     plt.show();
 
-iteration_array = julia_set_frames_v2(c = -0.70176 - 0.3842j, x_pixels = 1000, iterations = 170)
-julia_set_save_gif(iteration_array, dpi = 200, cmap = 'RdBu')
-
+iteration_array = julia_set_frames_v2(c = 0, x_pixels = 1000, iterations = 80)
+julia_set_plot_single_frame(iteration_array, frame = 60, cmap = 'RdBu')
 # error to correct...
 '''
 /Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/julia_and_mandelbrot_functions.py:69: RuntimeWarning: overflow encountered in absolute
@@ -248,6 +246,8 @@ julia_set_save_gif(iteration_array, dpi = 200, cmap = 'RdBu')
 /Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/julia_and_mandelbrot_functions.py:68: RuntimeWarning: invalid value encountered in square
   Z = Z ** 2 + c
   '''
+
+  # the invalid value is most likely due to it exceeding 64 bits.
 
 ## Slider modifications to do:
 # Attempt at changing colours... probably going to need classes...
