@@ -25,4 +25,7 @@ In chronological order:
 ![Example: Rotating Torus](images/donut.gif)
 
 ---
-![Example: Fractal Landscape](images/fractal_landscape.png)
+![Example: Fractal Landscape using diamond-square algorithm](images/fractal_landscape.png)
+
+---
+![Example: Fractal Landscape using classic noise algorithm](images/classic_noise.png)
