@@ -236,7 +236,7 @@ def julia_set_slider_frames(iteration_array, dpi = 200, cmap = 'Blues'):
     plt.show();
 
 iteration_array = julia_set_frames_v2(c = 0, x_pixels = 1000, iterations = 80)
-julia_set_plot_single_frame(iteration_array, frame = 60, cmap = 'RdBu')
+julia_set_plot_frames_v2(iteration_array, cmap = 'RdBu')
 # error to correct...
 '''
 /Users/reiyamahara/GitHub/Miscellaneous-Pet-Projects/Mandelbrot and Julia Sets/src/julia_and_mandelbrot_functions.py:69: RuntimeWarning: overflow encountered in absolute

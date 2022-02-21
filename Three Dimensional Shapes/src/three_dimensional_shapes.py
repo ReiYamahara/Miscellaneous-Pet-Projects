@@ -154,7 +154,7 @@ interval = 10, repeat_delay = 0, plot_type = 'meshplot', show = 'yes'):
         plt.show()
     return anim
 
-def animation_into_gif(anim, file_name = '../gifs/donut.gif'):
+def animation_into_gif(anim, file_name = '../gifs/donut.gif', fps = 10):
     '''
     turns the animation into a gif
 
@@ -162,13 +162,16 @@ def animation_into_gif(anim, file_name = '../gifs/donut.gif'):
     anim: object returned from rotate_3d_shape_animation
     file_name: name of the file
     '''
-    anim.save(file_name, writer = 'pillow')
+    anim.save(file_name, writer = 'pillow', fps = 10)
+    # changing the fps makes it go really funky...
 
 # make into gif
 # different plot style: try and get contourf3D to work...
 # try different shapes (klein bottle? mobius strip...?)
 
-x, y, z = donut_shape(num_points = 50)
-rotate_3d_shape_animation(x, y, z, rotation_matrix(num_points = 50), 
+x, y, z = donut_shape(num_points = 100)
+anim = rotate_3d_shape_animation(x, y, z, rotation_matrix(num_points = 100), 
 background_colour = 'beige', cmap = 'twilight_shifted', interval = 2)
+
+animation_into_gif(anim, file_name = '..gifs/torus.gif')
 
