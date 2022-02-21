@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+# plt.rcParams['animation.ffmpeg_path'] ='C:\\ffmpeg\\bin\\ffmpeg.exe'
 
 def worley_noise_animated(pixels = 400, num_feature_points = 16, k = 3, seed = 3, iterations = 80, 
     dpi = 100, cmap = 'gray', interval = 10, save = False, gif = 'worley_noise.gif', fps = 20):
@@ -71,8 +72,10 @@ def worley_noise_animated(pixels = 400, num_feature_points = 16, k = 3, seed = 3
     # binary, gray
     anim = animation.ArtistAnimation(fig, ims, interval = interval, blit = True, repeat_delay = 0)
     if save == True:
-        anim.save(gif, writer = 'pillow', dpi = dpi, fps = fps)
+        # anim.save(gif, writer = 'pillow', dpi = dpi, fps = fps, bitrate=-1)
+        # writergif = animation.PillowWriter(fps=30)
+        # writervideo = animation.FFMpegWriter(fps=30) 
+        anim.save(gif , writer= 'pillow')
     plt.show();
 
-    
 worley_noise_animated()
