@@ -29,3 +29,6 @@ In chronological order:
 
 ---
 ![Example: Fractal Landscape using classic noise algorithm](images/classic_noise.png)
+
+---
+![Example: Worley Noise](images/worley_noise.png)
