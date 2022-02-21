@@ -54,4 +54,4 @@ def imshow(array, dpi = 200, cmap = 'gray', save = False, name = 'plt.png'):
     plt.show()
 
 z = worley_noise()
-imshow(z)
+imshow(z, cmap = 'binary', save = True, name = 'worley_noise_inverted.png')
